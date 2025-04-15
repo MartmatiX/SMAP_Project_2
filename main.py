@@ -17,7 +17,7 @@ def check_java_with_javac(file_path):
     return result.stderr if result.stderr else "Syntax is correct!"
 
 
-def explain_error_with_llm(model, error_message):
+def explain_error_with_llm(model, error_message, code):
     prompt = f"""
 You are a Java expert helping students understand compiler errors.
 
@@ -25,7 +25,10 @@ Here is a Java compiler error message:
 
 {error_message}
 
-Please explain clearly what the error means and how to fix it. Keep it concise and easy to understand.
+Please explain clearly what the error means and how to fix it. Keep it concise and easy to understand. This is the 
+original code:
+
+{code}
 """
     response = model.generate(prompt, max_tokens=300)
     return response.strip()
@@ -58,7 +61,7 @@ def chatbot():
 
         if "error" in javac_result.lower():
             print("\n🔍 Asking LLM to explain the error...\n")
-            explanation = explain_error_with_llm(model, javac_result)
+            explanation = explain_error_with_llm(model, javac_result, java_code)
             print(f"💡 LLM Explanation:\n{explanation}")
         else:
             print("\n✅ No syntax errors. Code is valid.")
