@@ -60,11 +60,11 @@ def chatbot():
         print(f"javac result:\n{javac_result}")
 
         if "error" in javac_result.lower():
-            print("\n🔍 Asking LLM to explain the error...\n")
+            print("\nAsking LLM to explain the error...\n")
             explanation = explain_error_with_llm(model, javac_result, java_code)
-            print(f"💡 LLM Explanation:\n{explanation}")
+            print(f"LLM Explanation:\n{explanation}")
         else:
-            print("\n✅ No syntax errors. Code is valid.")
+            print("\nNo syntax errors. Code is valid.")
 
         print("\n---\n")
 
